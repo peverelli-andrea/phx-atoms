@@ -7,10 +7,12 @@ use Phx\Core\Render;
 
 final class Paragraph extends Component
 {
-	public final static function getName(): string
+	final private function __construct() {}
+
+	final public static function getName(): string
 	{ return "atom/paragraph"; }
 
-	public final function render(ParagraphProps $props): Render
+	final public static function render(ParagraphProps $props): Render
 	{
 		$content = $props->content;
 
