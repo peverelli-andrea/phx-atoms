@@ -1,18 +1,21 @@
 {
-    "name": "phx/atom",
-    "description": "Atoms component pack for PHX",
-    "type": "library",
-    "license": "GPL-3.0",
-    "autoload": {
-        "psr-4": {
-            "Phx\\Atom\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Peverelli Andrea",
-            "email": "ndrpeverelli@gmail.com"
-        }
-    ],
-    "require": {}
+	"name": "phx/atom",
+	"description": "Atoms component pack for PHX",
+	"type": "library",
+	"license": "GPL-3.0",
+	"autoload": {
+		"psr-4": {
+			"Phx\\Atom\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Peverelli Andrea",
+			"email": "ndrpeverelli@gmail.com"
+		}
+	],
+	"require": {
+		"phx/core": "dev-main"
+	},
+	"minimum-stability": "dev"
 }
