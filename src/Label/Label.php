@@ -17,18 +17,26 @@ final class Label extends Component
 	{
 		$content = $props->content;
 		$sub_role = $props->sub_role;
+		$color = $props->color->getForeground();
+		$color_name = $color->value;
 
 		$typography_css = self::getTypographyCss(
 			role: TypographyRole::LABEL,
 			sub_role: $sub_role,
 		);
 		$typography_classes = $typography_css->classes;
-		$class_keys = array_keys($typography_classes);
+
+		$palette_css = self::getPaletteCss(color: $color);
+
+		$class_names = [
+			...array_keys($typography_classes),
+			$color_name,
+		];
 
 		$common_props = $props->common;
 		$attributes = self::makeAttributes(
 			props: $common_props,
-			classes: $class_keys,
+			classes: $class_names,
 		);
 
 		$html = <<<HTML
@@ -36,7 +44,10 @@ final class Label extends Component
 		HTML;
 
 		$typos = $typography_css->fonts;
-		$classes = [...$typography_classes];
+		$classes = [
+			...$typography_classes,
+			$color_name => $palette_css,
+		];
 
 		$render = new Render(
 			html: $html,
