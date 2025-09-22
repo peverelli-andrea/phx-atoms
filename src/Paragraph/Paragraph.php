@@ -15,9 +15,10 @@ final class Paragraph extends Component
 
 	final public static function render(ParagraphProps $props): Render
 	{
+		$common_props = $props->common;
 		$content = $props->content;
 		$sub_role = $props->sub_role;
-		$sub_role_value = $sub_role->value;
+
 		$color = $props->color->getForeground();
 		$color_name = $color->value;
 
@@ -26,15 +27,16 @@ final class Paragraph extends Component
 			sub_role: $sub_role,
 		);
 		$typography_classes = $typography_css->classes;
+		$typography_class_names = array_keys($typography_classes);
 
 		$palette_css = self::getPaletteCss(color: $color);
+		$color_class = [$color_name => $palette_css];
 
 		$class_names = [
-			...array_keys($typography_classes),
+			...$typography_class_names,
 			$color_name
 		];
 
-		$common_props = $props->common;
 		$attributes = self::makeAttributes(
 			props: $common_props,
 			classes: $class_names,
@@ -47,7 +49,7 @@ final class Paragraph extends Component
 		$typos = $typography_css->fonts;
 		$classes = [
 			...$typography_classes,
-			$color_name => $palette_css,
+			...$color_class,
 		];
 
 		$render = new Render(

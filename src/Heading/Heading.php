@@ -1,29 +1,26 @@
 <?php
 
-namespace Phx\Atom\Label;
+namespace Phx\Atom\Heading;
 
 use Phx\Core\Component;
 use Phx\Core\Render;
-use Phx\Core\TypographyRole;
 
-final class Label extends Component
+final class Heading extends Component
 {
-	final private function __construct() {}
-
-	final public static function getName(): string
-	{ return "atom/label"; }
-
-	final public static function render(LabelProps $props): Render
+	final public static function render(HeadingProps $props): Render
 	{
 		$common_props = $props->common;
 		$content = $props->content;
 		$sub_role = $props->sub_role;
-
 		$color = $props->color->getForeground();
+		$level = $props->level;
+		$role = $props->role->getTypographyRole();
+
+		$level_name = $level->value;
 		$color_name = $color->value;
 
 		$typography_css = self::getTypographyCss(
-			role: TypographyRole::LABEL,
+			role: $role,
 			sub_role: $sub_role,
 		);
 		$typography_classes = $typography_css->classes;
@@ -43,7 +40,7 @@ final class Label extends Component
 		);
 
 		$html = <<<HTML
-		<label$attributes>$content</label>
+		<$level_name$attributes>$content</$level_name>
 		HTML;
 
 		$typos = $typography_css->fonts;
