@@ -8,6 +8,8 @@ use Phx\Core\Palette;
 
 final class Heading extends Component
 {
+	private function __construct() {}
+
 	final public static function render(HeadingProps $props): Render
 	{
 		$common_props = $props->common;

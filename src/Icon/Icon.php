@@ -6,24 +6,39 @@ use Phx\Core\Component;
 use Phx\Core\Render;
 use Phx\Core\FontSource;
 use Phx\Core\TypographyWeight;
+use Phx\Core\Palette;
 
 final class Icon extends Component
 {
+	private function __construct() {}
+
 	final public static function render(IconProps $props): Render
 	{
 		$common_props = $props->common;
 		$variant = $props->variant;
 		$size = $props->size;
 		$style = $props->style;
-		$color = $props->color->getForeground();
 		$weight = $props->weight;
 		$with_copy = $props->with_copy;
+		$color = $props->color;
+
+		if($color instanceof Palette) {
+			$color = $color->getForeground();
+		}
 
 		$variant_name = $variant->value;
-		$color_name = $color->value;
 
-		$palette_css = self::getPaletteCss(color: $color);
-		$color_classes = [$color_name => $palette_css];
+		$color_name = self::getColorName(color: $color);
+		$color_value = self::getColorValue(color: $color);
+
+		$color_class_name = "atom_icon_$color_name";
+		$color_css = <<<CSS
+		.$color_class_name {
+			color: $color_value;
+		}
+		CSS;
+
+		$color_classes = [$color_class_name => $color_css];
 
 		$icon_css = self::getIconCss(
 			variant: $variant,
@@ -38,7 +53,7 @@ final class Icon extends Component
 
 		$class_names = [
 			...$icon_class_names,
-			$color_name,
+			$color_class_name,
 		];
 
 		$attributes = self::makeAttributes(
@@ -51,6 +66,7 @@ final class Icon extends Component
 		HTML;
 
 		$typos = [...$icon_fonts];
+		$colors = [$color_name => $color];
 		$classes = [
 			...$icon_classes,
 			...$color_classes,
@@ -59,6 +75,7 @@ final class Icon extends Component
 		$render = new Render(
 			html: $html,
 			typos: $typos,
+			colors: $colors,
 			classes: $classes,
 		);
 

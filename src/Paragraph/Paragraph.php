@@ -9,7 +9,7 @@ use Phx\Core\Palette;
 
 final class Paragraph extends Component
 {
-	final private function __construct() {}
+	private function __construct() {}
 
 	final public static function render(ParagraphProps $props): Render
 	{
