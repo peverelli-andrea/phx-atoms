@@ -5,6 +5,7 @@ namespace Phx\Atom\Paragraph;
 use Phx\Core\Component;
 use Phx\Core\Render;
 use Phx\Core\TypographyRole;
+use Phx\Core\Palette;
 
 final class Paragraph extends Component
 {
@@ -18,9 +19,12 @@ final class Paragraph extends Component
 		$common_props = $props->common;
 		$content = $props->content;
 		$sub_role = $props->sub_role;
+		$color = $props->color;
 
-		$color = $props->color->getForeground();
-		$color_name = $color->value;
+		if($color instanceof Palette) {
+			$color = $props->color->getForeground();
+		}
+		$color_name = self::getColorName($color);
 
 		$typography_css = self::getTypographyCss(
 			role: TypographyRole::BODY,
