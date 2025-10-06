@@ -11,9 +11,6 @@ final class Paragraph extends Component
 {
 	final private function __construct() {}
 
-	final public static function getName(): string
-	{ return "atom/paragraph"; }
-
 	final public static function render(ParagraphProps $props): Render
 	{
 		$common_props = $props->common;
@@ -58,7 +55,7 @@ final class Paragraph extends Component
 		HTML;
 
 		$typos = $typography_css->fonts;
-		$colors = [$color];
+		$colors = [$color_name => $color];
 		$classes = [
 			...$typography_classes,
 			...$color_classes,

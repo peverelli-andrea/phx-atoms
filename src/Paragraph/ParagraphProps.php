@@ -15,7 +15,7 @@ final class ParagraphProps
 	final public function __construct(
 		public string $content = "",
 		public TypographySubRole $sub_role = TypographySubRole::LARGE,
-		public Palette|ForegroundColor|BackgroundColor|string $color = Palette::SURFACE,
+		public Palette|BackgroundColor|ForegroundColor|string $color = Palette::SURFACE,
 		?CommonProps $common = null,
 	) {
 		$this->common = $common ?? new CommonProps();
