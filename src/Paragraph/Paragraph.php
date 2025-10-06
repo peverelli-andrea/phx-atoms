@@ -21,10 +21,7 @@ final class Paragraph extends Component
 		$sub_role = $props->sub_role;
 		$color = $props->color;
 
-		if($color instanceof Palette) {
-			$color = $props->color->getForeground();
-		}
-		$color_name = self::getColorName($color);
+		$color_value = self::getColorValue($color);
 
 		$typography_css = self::getTypographyCss(
 			role: TypographyRole::BODY,
@@ -33,12 +30,17 @@ final class Paragraph extends Component
 		$typography_classes = $typography_css->classes;
 		$typography_class_names = array_keys($typography_classes);
 
-		$palette_css = self::getPaletteCss(color: $color);
-		$color_class = [$color_name => $palette_css];
+		$color_class_name = "atom_paragraph_color";
+		$color_css = <<<CSS
+		.$color_class_name {
+			color: $color_value;
+		}
+		CSS;
+		$color_class = [$color_class_name => $color_css];
 
 		$class_names = [
 			...$typography_class_names,
-			$color_name
+			$color_class_name,
 		];
 
 		$attributes = self::makeAttributes(
@@ -51,6 +53,7 @@ final class Paragraph extends Component
 		HTML;
 
 		$typos = $typography_css->fonts;
+		$colors = [$color];
 		$classes = [
 			...$typography_classes,
 			...$color_class,
@@ -59,6 +62,7 @@ final class Paragraph extends Component
 		$render = new Render(
 			html: $html,
 			typos: $typos,
+			colors: $colors,
 			classes: $classes,
 		);
 
