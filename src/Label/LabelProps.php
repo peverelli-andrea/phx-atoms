@@ -2,6 +2,7 @@
 
 namespace Phx\Atom\Label;
 
+use Phx\Core\TypographyRole;
 use Phx\Core\TypographySubRole;
 use Phx\Core\Palette;
 use Phx\Core\BackgroundColor;
@@ -14,6 +15,7 @@ final class LabelProps
 
 	final public function __construct(
 		public string $content = "",
+		public TypographyRole $role = TypographyRole::LABEL,
 		public TypographySubRole $sub_role = TypographySubRole::LARGE,
 		public Palette|BackgroundColor|ForegroundColor|string $color = Palette::SURFACE,
 		?CommonProps $common = null,

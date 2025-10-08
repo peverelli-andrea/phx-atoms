@@ -2,6 +2,7 @@
 
 namespace Phx\Atom\Paragraph;
 
+use Phx\Core\TypographyRole;
 use Phx\Core\TypographySubRole;
 use Phx\Core\Palette;
 use Phx\Core\ForegroundColor;
@@ -14,6 +15,7 @@ final class ParagraphProps
 
 	final public function __construct(
 		public string $content = "",
+		public TypographyRole $role = TypographyRole::BODY,
 		public TypographySubRole $sub_role = TypographySubRole::LARGE,
 		public Palette|BackgroundColor|ForegroundColor|string $color = Palette::SURFACE,
 		?CommonProps $common = null,

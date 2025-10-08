@@ -15,6 +15,7 @@ final class Label extends Component
 	{
 		$common_props = $props->common;
 		$content = $props->content;
+		$role = $props->role;
 		$sub_role = $props->sub_role;
 		$color = $props->color;
 
@@ -35,7 +36,7 @@ final class Label extends Component
 		$color_classes = [$color_class_name => $color_css];
 
 		$typography_css = self::getTypographyCss(
-			role: TypographyRole::LABEL,
+			role: $role,
 			sub_role: $sub_role,
 		);
 		$typography_classes = $typography_css->classes;

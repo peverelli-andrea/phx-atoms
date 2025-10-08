@@ -14,9 +14,9 @@ final class Heading extends Component
 	{
 		$common_props = $props->common;
 		$content = $props->content;
+		$role = $props->role;
 		$sub_role = $props->sub_role;
 		$level = $props->level;
-		$role = $props->role->getTypographyRole();
 		$color = $props->color;
 
 		if($color instanceof Palette) {
