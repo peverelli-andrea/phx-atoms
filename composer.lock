@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/peverelli-andrea/phx-core.git",
-                "reference": "03b9cc90dc8ee4786ee6a17b8eb4925eea393a31"
+                "reference": "e88c33e70831027d4ccf24f0190ccdfe4158f8f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/peverelli-andrea/phx-core/zipball/03b9cc90dc8ee4786ee6a17b8eb4925eea393a31",
-                "reference": "03b9cc90dc8ee4786ee6a17b8eb4925eea393a31",
+                "url": "https://api.github.com/repos/peverelli-andrea/phx-core/zipball/e88c33e70831027d4ccf24f0190ccdfe4158f8f1",
+                "reference": "e88c33e70831027d4ccf24f0190ccdfe4158f8f1",
                 "shasum": ""
             },
             "default-branch": true,
@@ -42,7 +42,7 @@
                 "issues": "https://github.com/peverelli-andrea/phx-core/issues",
                 "source": "https://github.com/peverelli-andrea/phx-core/tree/main"
             },
-            "time": "2025-10-28T23:39:22+00:00"
+            "time": "2025-10-28T23:44:00+00:00"
         }
     ],
     "packages-dev": [],
