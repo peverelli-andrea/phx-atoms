@@ -4,70 +4,34 @@ namespace Phx\Atom\Paragraph;
 
 use Phx\Core\Component;
 use Phx\Core\Render;
-use Phx\Core\Palette;
+use Phx\Core\CssColorProperty;
+use Phx\Core\ColorType;
 
 final class Paragraph extends Component
 {
-	private function __construct() {}
+	final public function __construct() {}
 
-	final public static function render(ParagraphProps $props): Render
+	final public function render(ParagraphProps $props): Render
 	{
-		$common_props = $props->common;
-		$content = $props->content;
-		$role = $props->role;
-		$sub_role = $props->sub_role;
-		$color = $props->color;
+		$this->registerCommonProps(common_props: $props->common);
 
-		if($color instanceof Palette) {
-			$color = $color->getForeground();
-		}
-
-		$color_value = self::getColorValue($color);
-		$color_name = self::getColorName($color);
-
-		$color_class_name = "atom_paragraph_color_$color_name";
-		$color_css = <<<CSS
-		.$color_class_name {
-			color: $color_value;
-		}
-		CSS;
-		$color_classes = [$color_class_name => $color_css];
-
-		$typography_css = self::getTypographyCss(
-			role: $role,
-			sub_role: $sub_role,
-		);
-		$typography_classes = $typography_css->classes;
-		$typography_class_names = array_keys($typography_classes);
-
-		$class_names = [
-			...$typography_class_names,
-			$color_class_name,
-		];
-
-		$attributes = self::makeAttributes(
-			props: $common_props,
-			classes: $class_names,
+		$this->addColor(
+			color: $props->color,
+			css_color_property: CssColorProperty::COLOR,
+			color_type: ColorType::FOREGROUND,
 		);
 
-		$html = <<<HTML
-		<p$attributes>$content</p>
-		HTML;
-
-		$typos = $typography_css->fonts;
-		$colors = [$color_name => $color];
-		$classes = [
-			...$typography_classes,
-			...$color_classes,
-		];
-
-		$render = new Render(
-			html: $html,
-			typos: $typos,
-			colors: $colors,
-			classes: $classes,
+		$this->addTypography(
+			role: $props->role,
+			sub_role: $props->sub_role,
 		);
 
-		return $render;
+		$attributes = $this->makeAttributes();
+		
+		return $this->makeRender(
+			html: <<<HTML
+			<p$attributes>$props->content</p>
+			HTML,
+		);
 	}
 }

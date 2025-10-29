@@ -14,8 +14,8 @@
 			"email": "ndrpeverelli@gmail.com"
 		}
 	],
+	"minimum-stability": "dev",
 	"require": {
-		"phx/core": "dev-main"
-	},
-	"minimum-stability": "dev"
+		"phx/core": "dev-main#68d230e82e79e5de7da4fb534a739e2124ab4d54~"
+	}
 }

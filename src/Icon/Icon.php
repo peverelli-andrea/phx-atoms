@@ -6,80 +6,42 @@ use Phx\Core\Component;
 use Phx\Core\Render;
 use Phx\Core\FontSource;
 use Phx\Core\TypographyWeight;
-use Phx\Core\Palette;
+use Phx\Core\CssColorProperty;
+use Phx\Core\ColorType;
 
 final class Icon extends Component
 {
-	private function __construct() {}
+	final public function __construct() {}
 
-	final public static function render(IconProps $props): Render
+	final public function render(IconProps $props): Render
 	{
-		$common_props = $props->common;
-		$variant = $props->variant;
-		$size = $props->size;
-		$style = $props->style;
-		$weight = $props->weight;
-		$with_copy = $props->with_copy;
-		$color = $props->color;
+		$this->registerCommonProps(common_props: $props->common);
 
-		if($color instanceof Palette) {
-			$color = $color->getForeground();
-		}
-
-		$variant_name = $variant->value;
-
-		$color_name = self::getColorName(color: $color);
-		$color_value = self::getColorValue(color: $color);
-
-		$color_class_name = "atom_icon_$color_name";
-		$color_css = <<<CSS
-		.$color_class_name {
-			color: $color_value;
-		}
-		CSS;
-
-		$color_classes = [$color_class_name => $color_css];
+		$this->addColor(
+			color: $props->color,
+			css_color_property: CssColorProperty::COLOR,
+			color_type: ColorType::FOREGROUND,
+		);
 
 		$icon_css = self::getIconCss(
-			variant: $variant,
-			size: $size,
-			style: $style,
-			weight: $weight,
-			with_copy: $with_copy,
+			variant: $props->variant,
+			size: $props->size,
+			style: $props->style,
+			weight: $props->weight,
+			with_copy: $props->with_copy,
 		);
-		$icon_fonts = $icon_css->fonts;
-		$icon_classes = $icon_css->classes;
-		$icon_class_names = array_keys($icon_classes);
+		array_push($this->typos, ...$icon_css->fonts);
+		array_push($this->classes, ...$icon_css->classes);
 
-		$class_names = [
-			...$icon_class_names,
-			$color_class_name,
-		];
+		$this->addClasses(class_names: array_keys($icon_css->classes));
 
-		$attributes = self::makeAttributes(
-			props: $common_props,
-			classes: $class_names,
+		$attributes = $this->makeAttributes();
+
+		return $this->makeRender(
+			html: <<<HTML
+			<span$attributes>{$props->variant->value}</span>
+			HTML,
 		);
-
-		$html = <<<HTML
-		<span$attributes>$variant_name</span>
-		HTML;
-
-		$typos = [...$icon_fonts];
-		$colors = [$color_name => $color];
-		$classes = [
-			...$icon_classes,
-			...$color_classes,
-		];
-
-		$render = new Render(
-			html: $html,
-			typos: $typos,
-			colors: $colors,
-			classes: $classes,
-		);
-
-		return $render;
 	}
 
 	private static function getIconCss(

@@ -4,74 +4,34 @@ namespace Phx\Atom\Heading;
 
 use Phx\Core\Component;
 use Phx\Core\Render;
-use Phx\Core\Palette;
+use Phx\Core\ColorType;
+use Phx\Core\CssColorProperty;
 
 final class Heading extends Component
 {
-	private function __construct() {}
+	final public function __construct() {}
 
-	final public static function render(HeadingProps $props): Render
+	final public function render(HeadingProps $props): Render
 	{
-		$common_props = $props->common;
-		$content = $props->content;
-		$role = $props->role;
-		$sub_role = $props->sub_role;
-		$level = $props->level;
-		$color = $props->color;
+		$this->registerCommonProps(common_props: $props->common);
 
-		if($color instanceof Palette) {
-			$color = $color->getForeground();
-		}
-
-		$level_name = $level->value;
-
-		$color_name = self::getColorName(color: $color);
-		$color_value = self::getColorValue(color: $color);
-
-		$color_class_name = "atom_heading_$color_name";
-		$color_css = <<<CSS
-		.$color_class_name {
-			color: $color_value;
-		}
-		CSS;
-
-		$color_classes = [$color_class_name => $color_css];
-
-		$typography_css = self::getTypographyCss(
-			role: $role,
-			sub_role: $sub_role,
-		);
-		$typography_classes = $typography_css->classes;
-		$typography_class_names = array_keys($typography_classes);
-
-		$class_names = [
-			...$typography_class_names,
-			$color_class_name,
-		];
-
-		$attributes = self::makeAttributes(
-			props: $common_props,
-			classes: $class_names,
+		$this->addColor(
+			color: $props->color,
+			color_type: ColorType::FOREGROUND,
+			css_color_property: CssColorProperty::COLOR,
 		);
 
-		$html = <<<HTML
-		<$level_name$attributes>$content</$level_name>
-		HTML;
-
-		$typos = $typography_css->fonts;
-		$colors = [$color_name => $color];
-		$classes = [
-			...$typography_classes,
-			...$color_classes,
-		];
-
-		$render = new Render(
-			html: $html,
-			typos: $typos,
-			colors: $colors,
-			classes: $classes,
+		$this->addTypography(
+			role: $props->role,
+			sub_role: $props->sub_role,
 		);
 
-		return $render;
+		$attributes = $this->makeAttributes();
+
+		return $this->makeRender(
+			html: <<<HTML
+			<{$props->level->value}$attributes>{$props->content}</{$props->level->value}>
+			HTML
+		);
 	}
 }
