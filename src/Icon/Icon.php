@@ -30,8 +30,8 @@ final class Icon extends Component
 			weight: $props->weight,
 			with_copy: $props->with_copy,
 		);
-		array_push($this->typos, ...$icon_css->fonts);
-		array_push($this->classes, ...$icon_css->classes);
+		$this->typos = array_merge($this->typos, $icon_css->fonts);
+		$this->classes = array_merge($this->classes, $icon_css->classes);
 
 		$this->addClasses(class_names: array_keys($icon_css->classes));
 
