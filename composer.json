@@ -16,6 +16,6 @@
 	],
 	"minimum-stability": "dev",
 	"require": {
-		"phx/core": "dev-main#9a2e8fbdd44047597e696ef1e06631f002934368"
+		"phx/core": "dev-main#e98cc6c4a69b7908806a2073d6768039f2fb011d"
 	}
 }

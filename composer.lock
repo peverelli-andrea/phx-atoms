@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1866d6f5a9f6507e7d2cdae8590d7f9",
+    "content-hash": "16a282a45f269e34a877b5a0eff4d70d",
     "packages": [
         {
             "name": "phx/core",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/peverelli-andrea/phx-core.git",
-                "reference": "9a2e8fbdd44047597e696ef1e06631f002934368"
+                "reference": "e98cc6c4a69b7908806a2073d6768039f2fb011d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/peverelli-andrea/phx-core/zipball/9a2e8fbdd44047597e696ef1e06631f002934368",
-                "reference": "9a2e8fbdd44047597e696ef1e06631f002934368",
+                "url": "https://api.github.com/repos/peverelli-andrea/phx-core/zipball/e98cc6c4a69b7908806a2073d6768039f2fb011d",
+                "reference": "e98cc6c4a69b7908806a2073d6768039f2fb011d",
                 "shasum": ""
             },
             "default-branch": true,
@@ -42,7 +42,7 @@
                 "issues": "https://github.com/peverelli-andrea/phx-core/issues",
                 "source": "https://github.com/peverelli-andrea/phx-core/tree/main"
             },
-            "time": "2025-11-01T17:47:49+00:00"
+            "time": "2025-11-04T16:34:44+00:00"
         }
     ],
     "packages-dev": [],
